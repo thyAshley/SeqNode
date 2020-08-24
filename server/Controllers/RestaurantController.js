@@ -8,8 +8,9 @@ exports.getAllRestaurant = async (req, res) => {
   console.log(results);
   res.status(200).json({
     status: "success",
+    results: results.rows.length,
     data: {
-      restaurant: ["mcDonalds", "Wendys"],
+      restaurant: results.rows,
     },
   });
 };
