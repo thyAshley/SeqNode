@@ -1,9 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const router = require("./routes");
+const morgan = require("morgan");
 
+const db = require("./db");
+const router = require("./routes");
 const app = express();
-app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
+app.use(express.json());
 app.use("/api/v1", router);
 
 const port = process.env.PORT || 5000;
