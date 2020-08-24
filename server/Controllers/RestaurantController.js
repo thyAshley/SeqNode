@@ -83,14 +83,22 @@ exports.updateRestaurantById = async (req, res) => {
         restaurant: result.rows[0],
       },
     });
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // DEL /api/v1/restaurants/:id
 // Delete restaurant by Id
-exports.deleteRestaurantById = (req, res) => {
-  console.log(req.params.id);
-  res.status(204).json({
-    status: "success",
-  });
+exports.deleteRestaurantById = async (req, res) => {
+  let queryStr = "DELETE FROM restaurants where id = $1";
+  let params = [req.params.id];
+  try {
+    const results = await db.query(queryStr, params);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
