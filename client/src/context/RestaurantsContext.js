@@ -4,9 +4,15 @@ import React, { useState, createContext } from "react";
 export const RestaurantContext = createContext([]);
 
 export const RestaurantsContextProvider = ({ children }) => {
-  const [restaurant, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+
+  const addRestaurants = (restaurant) => {
+    setRestaurants([...restaurants, restaurant]);
+  };
   return (
-    <RestaurantContext.Provider value={{ restaurant, setRestaurants }}>
+    <RestaurantContext.Provider
+      value={{ restaurants, setRestaurants, addRestaurants }}
+    >
       {children}
     </RestaurantContext.Provider>
   );

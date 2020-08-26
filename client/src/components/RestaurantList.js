@@ -4,7 +4,7 @@ import axios from "../APIs/RestaurantAPI";
 import { RestaurantContext } from "../context/RestaurantsContext";
 
 const RestaurantList = (props) => {
-  const { restaurant, setRestaurants } = useContext(RestaurantContext);
+  const { restaurants, setRestaurants } = useContext(RestaurantContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -15,9 +15,9 @@ const RestaurantList = (props) => {
       }
     };
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
-  console.log(restaurant);
   return (
     <div className="list-group">
       <table className="table table-dark table-hover">
@@ -32,18 +32,23 @@ const RestaurantList = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>McDonalds</td>
-            <td>Singapore</td>
-            <td>$$</td>
-            <td>Rating</td>
-            <td>
-              <button className="btn btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr>
+          {restaurants &&
+            restaurants.map((restaurant) => {
+              return (
+                <tr key={restaurant.id}>
+                  <td>{restaurant.name}</td>
+                  <td>{restaurant.location}</td>
+                  <td>{"$".repeat(restaurant.price_range)}</td>
+                  <td>Reviews</td>
+                  <td>
+                    <button className="btn btn-warning">Update</button>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>
