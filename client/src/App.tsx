@@ -1,12 +1,12 @@
 import React from "react";
 import { Switch, Link, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import RestaurantDetailPage from "./Pages/RestaurantDetailPage";
-import UpdatePage from "./Pages/UpdatePage";
+import Home from "./pages/Home";
+import RestaurantDetailPage from "./pages/RestaurantDetailPage";
+import UpdatePage from "./pages/UpdatePage";
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <Switch>
         <Route path="/restaurants/:id" exact component={RestaurantDetailPage} />
         <Route path="/restaurants/:id/update" exact component={UpdatePage} />
