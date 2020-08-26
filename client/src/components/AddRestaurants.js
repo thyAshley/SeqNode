@@ -21,7 +21,6 @@ const AddRestaurants = () => {
       console.log(err);
     }
   };
-  console.log(price);
   return (
     <div className="mb-4">
       <form onSubmit={handleSubmit}>
