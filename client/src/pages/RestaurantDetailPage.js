@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { RestaurantContext } from "../context/RestaurantsContext";
 import axios from "../APIs/RestaurantAPI";
 import StarRating from "../components/StarRating";
+import Reviews from "../components/Reviews";
 
 const RestaurantDetailPage = () => {
   const { id } = useParams();
@@ -18,7 +19,17 @@ const RestaurantDetailPage = () => {
     fetchData();
   }, []);
 
-  return <div>{selectedRestaurant && <StarRating rating={3} />}</div>;
+  return (
+    <div>
+      {selectedRestaurant && (
+        <React.Fragment>
+          <div className="mt-3">
+            <Reviews />
+          </div>
+        </React.Fragment>
+      )}
+    </div>
+  );
 };
 
 export default RestaurantDetailPage;
