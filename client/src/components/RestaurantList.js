@@ -20,7 +20,8 @@ const RestaurantList = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
     try {
       await axios.delete(`/restaurants/${id}`);
       setRestaurants(restaurants.filter((restaurant) => restaurant.id !== id));
@@ -29,8 +30,13 @@ const RestaurantList = (props) => {
     }
   };
 
-  const handleUpdate = async (id) => {
+  const handleUpdate = (e, id) => {
+    e.stopPropagation();
     history.push(`/restaurants/${id}/update`);
+  };
+
+  const handleRestaurantSelect = (id) => {
+    history.push(`/restaurants/${id}`);
   };
 
   return (
@@ -50,7 +56,10 @@ const RestaurantList = (props) => {
           {restaurants &&
             restaurants.map((restaurant) => {
               return (
-                <tr key={restaurant.id}>
+                <tr
+                  onClick={() => handleRestaurantSelect(restaurant.id)}
+                  key={restaurant.id}
+                >
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
@@ -58,7 +67,7 @@ const RestaurantList = (props) => {
                   <td>
                     <button
                       className="btn btn-warning"
-                      onClick={() => handleUpdate(restaurant.id)}
+                      onClick={(e) => handleUpdate(e, restaurant.id)}
                     >
                       Update
                     </button>
@@ -66,7 +75,7 @@ const RestaurantList = (props) => {
                   <td>
                     <button
                       className="btn btn-danger"
-                      onClick={() => handleDelete(restaurant.id)}
+                      onClick={(e) => handleDelete(e, restaurant.id)}
                     >
                       Delete
                     </button>

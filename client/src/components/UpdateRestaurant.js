@@ -1,5 +1,4 @@
-import { DH_CHECK_P_NOT_SAFE_PRIME } from "constants";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "../APIs/RestaurantAPI";
 
@@ -23,7 +22,7 @@ const UpdateRestaurant = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
