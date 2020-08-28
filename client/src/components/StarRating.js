@@ -11,7 +11,6 @@ const StarRating = ({ rating }) => {
       stars.push(<i key={i} className="far fa-star"></i>);
     }
   }
-  console.log(stars);
   return <React.Fragment>{stars}</React.Fragment>;
 };
 
