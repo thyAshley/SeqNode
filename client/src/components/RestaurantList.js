@@ -5,7 +5,7 @@ import axios from "../APIs/RestaurantAPI";
 import { RestaurantContext } from "../context/RestaurantsContext";
 import StarRating from "./StarRating";
 
-const RestaurantList = (props) => {
+const RestaurantList = () => {
   const { restaurants, setRestaurants } = useContext(RestaurantContext);
   let history = useHistory();
   useEffect(() => {

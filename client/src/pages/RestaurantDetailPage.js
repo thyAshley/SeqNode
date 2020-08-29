@@ -4,6 +4,7 @@ import { RestaurantContext } from "../context/RestaurantsContext";
 import axios from "../APIs/RestaurantAPI";
 import Reviews from "../components/Reviews";
 import AddReview from "../components/AddReview";
+import StarRating from "../components/StarRating";
 
 const RestaurantDetailPage = () => {
   const { id } = useParams();
@@ -18,7 +19,6 @@ const RestaurantDetailPage = () => {
     };
     fetchData();
   }, [id, update]);
-
   return (
     <div>
       {selectedRestaurant && (
@@ -27,6 +27,12 @@ const RestaurantDetailPage = () => {
             {selectedRestaurant.restaurant &&
               selectedRestaurant.restaurant.name}
           </h1>
+          <div className="text-center">
+            <StarRating
+              rating={selectedRestaurant.agg && selectedRestaurant.agg.avg}
+            />{" "}
+            ({selectedRestaurant.agg && selectedRestaurant.agg.count})
+          </div>
           <div className="mt-3">
             <Reviews reviews={selectedRestaurant.reviews} />
             <AddReview setUpdate={setUpdate} />
