@@ -1,8 +1,9 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "../APIs/RestaurantAPI";
 
 import { RestaurantContext } from "../context/RestaurantsContext";
+import StarRating from "./StarRating";
 
 const RestaurantList = (props) => {
   const { restaurants, setRestaurants } = useContext(RestaurantContext);
@@ -12,7 +13,6 @@ const RestaurantList = (props) => {
       try {
         const result = await axios.get("/restaurants");
         setRestaurants(result.data.data.restaurant);
-        console.log(result);
       } catch (err) {
         console.log(err);
       }
@@ -64,7 +64,18 @@ const RestaurantList = (props) => {
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
-                  <td>Reviews</td>
+                  <td>
+                    {restaurant.count ? (
+                      <Fragment>
+                        <StarRating rating={restaurant.average_rating} />
+                        <span className="text-warning ml-1">
+                          ({restaurant.count || 0})
+                        </span>
+                      </Fragment>
+                    ) : (
+                      <span className="text-warning ml-1">0 Reviews</span>
+                    )}
+                  </td>
                   <td>
                     <button
                       className="btn btn-warning"
