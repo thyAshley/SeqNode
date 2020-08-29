@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { RestaurantContext } from "../context/RestaurantsContext";
 import axios from "../APIs/RestaurantAPI";
@@ -10,15 +10,15 @@ const RestaurantDetailPage = () => {
   const { selectedRestaurant, setSelectedRestaurant } = useContext(
     RestaurantContext
   );
-
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(`/restaurants/${id}`);
       setSelectedRestaurant(response.data.data);
     };
     fetchData();
-  }, []);
-  console.log(selectedRestaurant);
+  }, [id, update]);
+
   return (
     <div>
       {selectedRestaurant && (
@@ -29,7 +29,7 @@ const RestaurantDetailPage = () => {
           </h1>
           <div className="mt-3">
             <Reviews reviews={selectedRestaurant.reviews} />
-            <AddReview />
+            <AddReview setUpdate={setUpdate} />
           </div>
         </React.Fragment>
       )}

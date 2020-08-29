@@ -1,12 +1,28 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "../APIs/RestaurantAPI";
 
-const AddReview = () => {
+const AddReview = ({ setUpdate }) => {
   const [name, setName] = useState("");
   const [rating, setRating] = useState(1);
   const [review, setReview] = useState("");
+  const { id } = useParams();
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`/restaurants/${id}/addReview`, {
+        name,
+        rating,
+        review,
+      });
+      setUpdate((prev) => !prev);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="mb-2">
-      <form>
+      <form onSubmit={(e) => onSubmitHandler(e)}>
         <div className="form-row">
           <div className="form-group col-8">
             <label htmlFor="name">Name</label>
