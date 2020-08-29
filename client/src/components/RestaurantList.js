@@ -12,6 +12,7 @@ const RestaurantList = (props) => {
       try {
         const result = await axios.get("/restaurants");
         setRestaurants(result.data.data.restaurant);
+        console.log(result);
       } catch (err) {
         console.log(err);
       }
